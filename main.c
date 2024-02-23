@@ -15,24 +15,7 @@ void endProgram(Process *queue);
 
 int main(int argc,char *argv[])
 {
-    //creating the command line 
-  /*
-  if(argc != 5)
-  {
-    printf("Usage: %s -f input_file -o output_file\n", argv[9]);
-  }
-
-  if(strcmp(argv[1], "-f") != 0 || strcmp(argv[3], "-o") != 0){
-    printf("Usage: %s -f input_file -o output_file.\n", argv[0]);
-    return 1;
-  }
-
-  const char *inputFile = argv[2];
-  const char *outputFile = argv[4];
-  */
-    
-         //creating the command line 
-    if(argc != 5)
+    /*    if(argc != 5)
     {
         printf("Usage: %s -f input_file -o output_file\n", argv[0]);
         return 1;
@@ -58,11 +41,13 @@ int main(int argc,char *argv[])
         }
     }
 
+
+
     if(inputFile == NULL || outputFile == NULL)
     {
         printf("Both -f and -o options are required.\n");
         return 1;
-    }
+    }*/
 
     Process *queue = NULL;
 
@@ -92,7 +77,7 @@ int main(int argc,char *argv[])
           scanf("%s", sc_method);
            if(strcasecmp(sc_method, "FCFS") == 0)
    {
-          method_fcfs(queue, inputFile);
+          method_fcfs(queue, "input.txt");
    }
           break;
 
@@ -104,15 +89,15 @@ int main(int argc,char *argv[])
             break;
         case 3:
         //based on what the user select on the scheduling method the result will be printed here
-           showResult(sc_method, queue);
+           Result_FCFS(queue);
            break;
 
         case 4:
 
         //End Program: If user chooses this option, program show all (implemented) scheduling results on display
-        endProgram(queue);
+        
 
-          fcfs_ToFile(queue, outputFile);
+          fcfs_ToFile(queue, "output.txt");
       
          return 0;
   
@@ -138,11 +123,5 @@ void showResult(char *sc_method, Process *queue)
      
    
 }
-
-void endProgram(Process *queue)
-{
-      Result_FCFS(queue);
-}
-
 
 

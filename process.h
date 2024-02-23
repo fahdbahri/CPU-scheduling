@@ -21,7 +21,7 @@ typedef struct Process{
 } Process;
 
 
-void insertProcess(Process** queue, int BT, int AT, int PT);
+void insert_end(Process** queue, int burstTime, int arriveTime, int priority);
 
 
 #endif

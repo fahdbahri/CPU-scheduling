@@ -12,34 +12,38 @@ int processNum = 0;
 
 float avgWaitingTime = 0;
 
+int processID= 0;
 
 
-void insert_create(Process** p,int burst, int arriveTime, int priority)
+
+void insert_end(Process** root,int burstTime, int arriveTime, int priority)
 {
-    Process *q, *r = *p;
-    
-    q = (Process*)malloc(sizeof(Process));
-    //set values
-    
-    q->burst_time = burst;
-    q->arrive_time = arriveTime;
-    q->priority = priority;
-    q->next = NULL;
-
-   
-    if(*p == NULL)
+    Process *newProcess = malloc(sizeof(Process));
+    if(newProcess == NULL)
     {
-        *p = q;
-    } else{
-        while(r->next != NULL)
-        {
-            r = r->next;
-          
-        }
-          r->next = q;
+        exit(1);
     }
-      processNum++;
+     newProcess->next = NULL;
+     newProcess->pid = processID++;
+     newProcess->burst_time = burstTime;
+     newProcess->arrive_time = arriveTime;
+     newProcess->priority = priority;
 
+     if(*root == NULL)
+     {
+        *root = newProcess;
+     }
+
+     Process *current = *root;
+     while(current->next != NULL)
+     {
+        current = current->next;
+     }
+
+     current->next = newProcess;
+
+     
+      
 
     
 }
@@ -51,7 +55,7 @@ void insert_create(Process** p,int burst, int arriveTime, int priority)
 //create the process 
 void method_fcfs(Process *queue, const char *input_File)
 {
-    Process *current = queue;
+    Process *current = NULL;
     FILE * inputFile = fopen(input_File, "r");
     if(inputFile == NULL)
     {  
@@ -64,7 +68,9 @@ void method_fcfs(Process *queue, const char *input_File)
     while(fscanf(inputFile, "%d:%d:%d", &burst, &arrive, &priority) == 3)
     {
        
-      insert_create(&queue, burst, arrive, priority);
+      insert_end(&current, burst, arrive, priority);
+     
+     
     }
   fclose(inputFile);
 
@@ -80,20 +86,15 @@ void method_fcfs(Process *queue, const char *input_File)
         totalWaitingTime += current->waiting_time; 
         currentTime += current->burst_time;
         current = current->next;
+        
 
         
      }
 
-     if(processNum <= 0)
-     {
-        printf("process number is zero");
-     }
     
         avgWaitingTime = (float)totalWaitingTime / processNum;
-     
-
       
-    
+     
       
 
 }
@@ -122,14 +123,5 @@ void Result_FCFS(Process *queue)
         printf("P%d: %d ms\n", current->pid, current->waiting_time);
     }
     printf("Average Waiting Time: %.2f ms\n", avgWaitingTime);
-
-     if(processNum == 0)
-    {
-        printf("N/A\n");
-    }
-    else
-    {
-        printf("%.2f ms\n", avgWaitingTime);
-    }
 
 }
