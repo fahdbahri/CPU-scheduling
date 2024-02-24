@@ -1,27 +1,45 @@
-//process.h
-
 #ifndef PROCESS_H
 #define PROCESS_H
 
-#include <stdlib.h>
+typedef struct 
+{
+   unsigned  burst;
+   unsigned  arrival;
+   unsigned  priority;
+   unsigned seq;
 
-//Create the process
 
-typedef struct Process{
+} Info;
+
+
+typedef struct st_node
+{
+
+   Info* info;
+   struct st_node* next;
+   struct st_node* prev;
+} Node;
+
+typedef struct 
+{
+   size_t size;
+   Node* head;
+   Node* tail;
    
-   int pid;
-   int arrive_time;
-   int burst_time;
-   int waiting_time;
-   int turnaround_time;
-   int currentTime;
-   int priority;
 
-   struct Process *next;
-} Process;
+}List;
 
 
-void insert_end(Process** queue, int burstTime, int arriveTime, int priority);
+
+
+List* create_l();
+List* destroy_l(List*);
+
+int empty(List*);
+int insert_n(Info*, List*);
+int remove_n(List*);
+int show_l(List*, const char*);
+int size(List*);
 
 
 #endif
