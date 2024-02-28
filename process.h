@@ -6,6 +6,7 @@ typedef struct
    unsigned  burst;
    unsigned  arrival;
    unsigned  priority;
+   unsigned start_time, complete_time, wait_time, turn_around;
    unsigned seq;
 
 

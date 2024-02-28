@@ -16,7 +16,7 @@ List* deserialize(const char* file)
 
     Info info = {0};
     List* new_l = create_l(); // here we create a new list;
-    while(3 == fscanf(in,"%d:%d:%d", &info.arrival, &info.burst, &info.priority))
+    while(3 == fscanf(in,"%d:%d:%d", &info.burst, &info.arrival , &info.priority))
     {
        
         insert_n(&info, new_l); //inserting the date into the list
@@ -64,20 +64,31 @@ int serialize(List* L, const char* file)
 
 double fcfs_method(List* L)
 {  
+    printf("Scheduling Method: First Come First Served\n");
+    printf("Process Waiting Times:\n");
 
     if (L == NULL) return -1;
     if (L->size == 0) return 0.;  // easy
     double avgWait_Time = 0.;
     int totalWait_time = 0;
-    int completeTime = 0;
+    int current_time = 0;
     Node*  p   = L->head;
     for (size_t i = 0; i < L->size; i += 1)
     {  // here we have node data, one
         // at a time
-         completeTime += p->info->burst;  // Accumulate burst times of processed processes  // Calculate turnaround time
-       totalWait_time += completeTime - p->info->arrival - p->info->burst;  // Calculate waiting time
+        p->info->start_time = current_time;
+        p->info->complete_time = p->info->start_time + p->info->burst;
+        p->info->turn_around = p->info->complete_time - p->info->arrival;
+        p->info->wait_time = p->info->turn_around - p->info->burst;
+
+
+        totalWait_time += p->info->wait_time;
+        current_time = p->info->complete_time;
+       printf("P%ld: %d ms\n", i + 1, p->info->wait_time);
         p = p->next;
-    };
+    }
+
+   
 
     avgWait_Time = (double)totalWait_time / size(L);
     return avgWait_Time;
