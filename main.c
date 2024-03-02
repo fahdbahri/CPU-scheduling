@@ -37,7 +37,8 @@ void setSchedulingMethod();
 void setPreemptiveMode();
 void showResult();
 void destroyList(List* L); // Function to destroy the list and free memory
-void showResult(List* new_list, const char* output_filename);
+void showResult(List* new_list);
+void endProgram(List* new_list,  const char* output_filename);
 
 // Global variables
 char schedulingMethod[50] = "None";  // Default scheduling method
@@ -88,10 +89,12 @@ int main(int argc, char* argv[]) {
                 setPreemptiveMode();  // Set preemptive mode
                 break;
             case 3:
-                showResult(new_list, output_filename);  // Show result
+                showResult(new_list);  // Show result
                 break;
             case 4:
                 printf("Ending program.\n");
+                endProgram(new_list, output_filename);
+            
                 destroyList(new_list);  // Free memory
                 return 0;
             default:
@@ -117,18 +120,36 @@ void setPreemptiveMode() {
 }
 
 // Function to show the result based on the chosen scheduling method
-void showResult(List* new_list, const char* output_filename) {
+void showResult(List* new_list){
 
-  FILE *output_file = fopen("output.txt", "w");
+  
     if (strcmp(schedulingMethod, "FCFS") == 0) {
-        fprintf(output_file, "Average waiting time is: %.2f\n", fcfs_method(new_list));
+
+        fcfs_method(new_list);
+        
     } else if (strcmp(schedulingMethod, "None") == 0) {
         printf("No scheduling method chosen.\n");
     } else {
         printf("Invalid scheduling method.\n");
     }
 
-     fclose(output_file);
+     
+}
+
+
+void endProgram(List* new_list, const char* output_filename)
+{
+    FILE *output_file = fopen("output.txt", "w");
+
+      if (strcmp(schedulingMethod, "FCFS") == 0) {
+        printfcfs_method(new_list, output_file);
+    } else if (strcmp(schedulingMethod, "None") == 0) {
+        printf("No scheduling method chosen.\n");
+    } else {
+        printf("Invalid scheduling method.\n");
+    }
+
+    fclose(output_file);
 }
 
 // Function to destroy the list and free memory
