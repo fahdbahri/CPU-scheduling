@@ -3,6 +3,7 @@
 
 typedef struct 
 {
+   unsigned   pid;
    unsigned  burst;
    unsigned  arrival;
    unsigned  priority;
@@ -41,6 +42,7 @@ int insert_n(Info*, List*);
 int remove_n(List*);
 int show_l(List*, const char*);
 int size(List*);
-
+List* deserialize(const char* file);
+int serialize(List* L, const char* file);
 
 #endif

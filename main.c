@@ -30,7 +30,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "fcfs.c"  // Include the FCFS scheduling algorithm file
+#include "fcfs.c" 
+#include "sjf.c" 
+#include "process.c"
 
 // Function prototypes
 void setSchedulingMethod();
@@ -39,6 +41,8 @@ void showResult();
 void destroyList(List* L); // Function to destroy the list and free memory
 void showResult(List* new_list);
 void endProgram(List* new_list,  const char* output_filename);
+void freeList(Node* head);
+
 
 // Global variables
 char schedulingMethod[50] = "None";  // Default scheduling method
@@ -67,7 +71,9 @@ int main(int argc, char* argv[]) {
     }
 
     // Deserialize data from input file
+
     List* new_list = deserialize(input_filename);
+
 
     // Display menu and process user options
     int option;
@@ -89,7 +95,9 @@ int main(int argc, char* argv[]) {
                 setPreemptiveMode();  // Set preemptive mode
                 break;
             case 3:
-                showResult(new_list);  // Show result
+                showResult(new_list); 
+                   // Show result
+              
                 break;
             case 4:
                 printf("Ending program.\n");
@@ -109,7 +117,16 @@ int main(int argc, char* argv[]) {
 void setSchedulingMethod() {
     printf("Enter scheduling method ('FCFS' for First Come First Served, 'None' for no scheduling method): ");
     scanf("%s", schedulingMethod);
-    printf("Scheduling method set to: %s\n", schedulingMethod);
+    if(strcmp(schedulingMethod, "FCFS") == 0)
+    {
+        printf("Scheduling method set to: %s\n", schedulingMethod);
+
+    }else if(strcmp(schedulingMethod, "SJF") == 0)
+    {
+        printf("Scheduling method set to: %s\n", schedulingMethod);
+    }
+
+    
 }
 
 // Function to set the preemptive mode based on user input
@@ -129,7 +146,12 @@ void showResult(List* new_list){
         
     } else if (strcmp(schedulingMethod, "None") == 0) {
         printf("No scheduling method chosen.\n");
-    } else {
+    } else if(strcmp(schedulingMethod, "SJF" ) == 0)
+    {
+        sjf_method(new_list);
+     
+    }
+    else {
         printf("Invalid scheduling method.\n");
     }
 
@@ -143,7 +165,11 @@ void endProgram(List* new_list, const char* output_filename)
 
       if (strcmp(schedulingMethod, "FCFS") == 0) {
         printfcfs_method(new_list, output_file);
-    } else if (strcmp(schedulingMethod, "None") == 0) {
+    } 
+    else if(strcmp(schedulingMethod, "SJF" ) == 0)
+    {
+        printsjf_method(new_list, output_file);
+    }else if (strcmp(schedulingMethod, "None") == 0) {
         printf("No scheduling method chosen.\n");
     } else {
         printf("Invalid scheduling method.\n");
@@ -154,8 +180,11 @@ void endProgram(List* new_list, const char* output_filename)
 
 // Function to destroy the list and free memory
 void destroyList(List* L) {
+
+    List* temp;
     if (L != NULL) {
-        destroy_l(L);
-        free(L);
+        destroy_l(temp);
+        free(temp);
     }
 }
+
