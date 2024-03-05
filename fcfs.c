@@ -29,7 +29,7 @@ void printfcfs_method(List* L, FILE *output_file)
 
         totalWait_time += p->info->wait_time;
         current_time = p->info->complete_time;
-       fprintf(output_file, "P%ld: %d ms\n", i + 1, p->info->wait_time);
+       fprintf(output_file, "P%d: %d ms\n", p->info->pid + 1, p->info->wait_time);
         p = p->next;
     }
 
@@ -47,6 +47,7 @@ void fcfs_method(List* L)
 {  
     printf( "Scheduling Method: First Come First Served\n");
     printf("Process Waiting Times:\n");
+    if(empty(L)) printf("list is empty");
 
     if (L == NULL && L->size == 0 ) return;
     double avgWait_Time = 0.;
@@ -64,7 +65,7 @@ void fcfs_method(List* L)
 
         totalWait_time += p->info->wait_time;
         current_time = p->info->complete_time;
-       printf("P%ld: %d ms\n", i + 1, p->info->wait_time);
+       printf("P%d: %d ms\n", p->info->pid + 1, p->info->wait_time);
         p = p->next;
     }
 
@@ -73,6 +74,7 @@ void fcfs_method(List* L)
     avgWait_Time = (double)totalWait_time / size(L);
 
    printf("Average waiting time is: %.2f\n", avgWait_Time); 
-empty(L);
+   
+   
 
 }

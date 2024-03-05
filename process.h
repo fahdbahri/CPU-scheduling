@@ -8,9 +8,6 @@ typedef struct
    unsigned  arrival;
    unsigned  priority;
    unsigned start_time, complete_time, wait_time, turn_around;
-   unsigned seq;
-
-
 } Info;
 
 
@@ -41,8 +38,9 @@ int empty(List*);
 int insert_n(Info*, List*);
 int remove_n(List*);
 int show_l(List*, const char*);
+int show_i(Info*, const char*);
 int size(List*);
-List* deserialize(const char* file);
-int serialize(List* L, const char* file);
+List* deserialize(const char*);
+int serialize(List*, const char*);
 
 #endif

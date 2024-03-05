@@ -5,7 +5,7 @@
 #include "process.h"
 
 
-
+ static unsigned pid = 1;
 
 List* destroy_l(List* L)
 {
@@ -40,14 +40,12 @@ List* create_l()
 
 int insert_n(Info* info, List* L)
 {  // inserts at the end of list
-    static unsigned seq = 1000;
     if (L == NULL) return -1;
     // new node here
     Node* nv = (Node*)malloc(sizeof(Node));
     // new data here: always copy
     nv->info      = (Info*)malloc(sizeof(Info));
     *(nv->info)   = *info;
-    nv->info->seq = seq++;  // USN
     nv->prev      = L->tail;
     nv->next      = NULL;
     // ajusta os ponteiros da lista
@@ -58,6 +56,47 @@ int insert_n(Info* info, List* L)
     L->tail = nv;
     return (int)L->size;
 }
+
+/*int insert_n(Info* info, List* L)
+{
+    if (L == NULL) return -1; // Input validation
+    
+    // Allocate memory for the new node
+    Node* nv = (Node*)malloc(sizeof(Node));
+    if (nv == NULL) return -1; // Check for memory allocation failure
+    
+    // Allocate memory for the data and copy it
+    nv->info = (Info*)malloc(sizeof(Info));
+    if (nv->info == NULL)
+    {
+        free(nv); // Free the allocated node if data allocation fails
+        return -1;
+    }
+    *(nv->info) = *info; // Copy the data
+    
+    // Assign the PID value
+    nv->info->pid = L->size + 1; // Increment the PID based on the current size of the list
+    
+    // Adjust pointers for the new node
+    nv->prev = NULL; // Since the new node will be the first node, its prev pointer should be NULL
+    nv->next = L->head; // The new node's next pointer should point to the current head of the list
+    
+    // Update the list pointers
+    if (L->size == 0) // If the list is empty
+    {
+        L->tail = nv; // The new node becomes both the head and the tail
+    }
+    else
+    {
+        L->head->prev = nv; // Update the prev pointer of the current head to point to the new node
+    }
+    L->head = nv; // Update the head pointer to point to the new node
+    
+    L->size++; // Increment the list size
+    
+    return (int)L->size; // Return the updated list size
+}
+*/
 
 int remove_n(List* L)
 {  // remove from start
@@ -83,12 +122,12 @@ List* deserialize(const char* file)
     {
        
         insert_n(&info, new_l); //inserting the date into the list
-
+        info.pid++;            // incrementing pid for each process
+        
     };
 
     fclose(in);
     return new_l; // return the list with the data into the file 
-
 }
 
 int serialize(List* L, const char* file)
@@ -126,8 +165,18 @@ int serialize(List* L, const char* file)
 }
 
 
+int show_i(Info* info, const char* msg)
+{
+    if (info == NULL) return -1;
+    if (msg != NULL) printf("%s", msg);
+    printf(
+        "#%4d: B:%4d A:%4d P:%4d\n", info->pid, info->burst,
+        info->arrival, info->priority);
+    return 0;
+}
 
-/*
+
+
 int show_l(List* L, const char* tit)
 {
     if (L == NULL) return -1;
@@ -137,9 +186,9 @@ int show_l(List* L, const char* tit)
     else
         printf("  %zd elements:\n", L->size);
     if (L->head != NULL)
-        printf("  [First seq: %d", L->head->info->seq);
+        printf("  [First process: %d", L->head->info->pid);
     if (L->tail != NULL)
-        printf("  Last seq: %d]\n", L->tail->info->seq);
+        printf("  Last process: %d]\n", L->tail->info->pid);
 
     Node* p = L->head;
     for (size_t i = 0; i < L->size; i += 1)
@@ -149,7 +198,9 @@ int show_l(List* L, const char* tit)
     }
     printf("\n");
     return 0;
-}*/
+}
+
+
 
 int size(List* L)
 {
