@@ -7,8 +7,6 @@
 
 
 
-//deserialize  the data from file to linked list.
-
 
 void sortList(List* L){
 
@@ -31,7 +29,8 @@ void sortList(List* L){
                 index->info = temp;
             }
             
-            else if (current->info->burst == index->info->burst) {
+           
+           else if (current->info->burst == index->info->burst) {
 
                 if(current->info->arrival > index->info->arrival)
                 {

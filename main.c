@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include "fcfs.c" 
 #include "sjf.c" 
+#include "srtf.c"
 #include "process.c"
 
 // Function prototypes
@@ -144,18 +145,25 @@ void showResult(List* new_list){
 
     if (strcmp(schedulingMethod, "FCFS") == 0) {
 
+        if(strcmp(preemptiveMode, "Off") == 0 || strcmp(preemptiveMode, "On") == 0  ){
+
         fcfs_method(new_list);
-     
+        }
     
         
     } else if (strcmp(schedulingMethod, "None") == 0) {
         printf("No scheduling method chosen.\n");
     } else if(strcmp(schedulingMethod, "SJF" ) == 0)
     {
-        sjf_method(new_list);
-  
-   
-     
+        if(strcmp(preemptiveMode, "Off") == 0)
+        {
+            sjf_method(new_list);
+
+        } else if (strcmp(preemptiveMode, "On") == 0){
+
+            srtf_method(new_list);
+
+        }
     }
     else {
         printf("Invalid scheduling method.\n");
