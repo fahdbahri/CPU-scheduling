@@ -7,49 +7,73 @@
 
 void sort_srtf(List* L){
 
-     Node* current = NULL;
-     Node* index = NULL;
-     Info* temp = NULL;
+     printf("Scheduling Method: Shortest job First Non Preemptive\n");
+     printf("Process Waiting Times:\n");
 
-    if (L->head == NULL) {
-        return;
+
+        
+  int totalWait_time;
+  double avgWait_Time;
+  int time = 0;
+  int min = INT_MAX;
+   Node* current;
+   current=L->head;
+  while(current != NULL)
+    {
+      current->info->remain_burst = current->info->burst;
+      current = current->next;
+    }
+  while(time <= L->size)
+  {
+    Node* index = NULL;
+   current = L->head;
+    min =  INT_MAX;
+    while(current != NULL)
+    {
+      if(current->info->arrival <= time && min > current->info->remain_burst)
+      {
+        min = current->info->remain_burst;
+        index = current;
+      }
+
+    }
+    current = current->next;
+
+    if(index == NULL)
+    {
+      time++;
     } else
     {
-      for(current = L->head; current->next != NULL; current = current->next)
-      {
-        current->info->burst = current->info->remain_burst;
-        if(current->info->arrival == 0) continue; // Skip the first node, which is Ar
-        for(index = current->next; index->next != NULL; index = index->next)
-        {
-          if(current->info->burst > index->info->burst)
-          {
-            temp = current->info;
-            current->info = index->info;
-            index->info = temp;
+      printf("P%d: %d ms\n",  index->info->pid + 1 , index->info->wait_time);
+      time += 1;
+      index->info->remain_burst -=1;
+      index->info->wait_time = time - (index->info->arrival + index->info->burst);
 
-          }
-        }
-      }
+      totalWait_time += index->info->wait_time;
+
     }
+  }
+
+       avgWait_Time = (double)totalWait_time / size(L);
+
+      printf("Average waiting time is: %.2f\n", avgWait_Time); 
 
 
     
 }
 
-
+/*
 void srtf_method(List* L)
 {
-     printf("Scheduling Method: Shortest job First Non Preemptive\n");
-     printf("Process Waiting Times:\n");
-        
+    
 
       
         int current_time = 0;
         int count = 0;
-        int totalWait_time;
-        double avgWait_Time;
-        sort_srtf(L);
-        Node* p = L->head;
+       
+        
+        Node*p;
+        p->info->iscompleted = false;
        
 
 
@@ -59,7 +83,7 @@ void srtf_method(List* L)
           Node* index = NULL;
           int mini_value = INT_MAX;
 
-          for(size_t i = 0; i < L->size; i++)
+          for(p = L->head; p->next!= NULL ;p = p->next )
           {
             if(p->info->arrival <= current_time && p->info->iscompleted == false)
             {
@@ -101,23 +125,22 @@ void srtf_method(List* L)
               index->info->wait_time = index->info->turn_around - index->info->burst;
 
                  
-              printf("P%d: %d ms\n",  p->info->pid + 1 , p->info->wait_time);
+             
 
 
               totalWait_time +=  index->info->wait_time ;
               count++;
-              index->info->iscompleted = true;
-              p = p->next;
+              p->info->iscompleted = true;
+           
               
              }
           }
+          p = p->next;
           
         }
 
         
-      avgWait_Time = (double)totalWait_time / size(L);
-
-      printf("Average waiting time is: %.2f\n", avgWait_Time); 
+     
         
 
-}
+}*/
