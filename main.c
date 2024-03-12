@@ -184,7 +184,7 @@ void endProgram(List* new_list, const char* output_filename)
     else if(strcmp(schedulingMethod, "SJF" ) == 0)
     {   
 
-        printsjf_method(new_list, output_file);
+       // printsjf_method(new_list, output_file);
     }else if (strcmp(schedulingMethod, "None") == 0) {
         printf("No scheduling method chosen.\n");
     } else {

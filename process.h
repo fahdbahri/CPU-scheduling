@@ -1,5 +1,6 @@
 #ifndef PROCESS_H
 #define PROCESS_H
+#include <stdbool.h>
 
 typedef struct 
 {
@@ -7,7 +8,7 @@ typedef struct
    unsigned  burst;
    unsigned  arrival;
    unsigned  priority;
-   unsigned start_time, complete_time, wait_time, turn_around;
+   unsigned start_time, execute_time, complete_time, wait_time, turn_around, remain_burst;
 } Info;
 
 
