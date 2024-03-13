@@ -5,7 +5,6 @@
 #include "process.h"
 
 
- static unsigned pid = 1;
 
 List* destroy_l(List* L)
 {
