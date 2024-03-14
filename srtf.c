@@ -5,12 +5,9 @@
 #include <limits.h>
 #include "process.h"
 
-
-
-void print_srtf(List* L)
-{
-
-}
+int total_waitTime = 0;
+double  avg_waitTime = 0;
+Node* temp;
 
 void srtf_method(List* L)
 {
@@ -19,8 +16,6 @@ void srtf_method(List* L)
     
 int current_time = 0;
 int total_Burst = 0;
-int total_waitTime = 0;
-double  avg_waitTime = 0;
 Node* current = L->head;
 Node* index;
 Node* temp;
@@ -78,3 +73,5 @@ for(size_t i = 0; i < L->size; i++)
       printf("Average waiting time is: %.2f\n", avg_waitTime); 
     
 }
+
+

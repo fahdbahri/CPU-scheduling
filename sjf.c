@@ -17,6 +17,7 @@ void sjf_method(List* L)
    while(current != NULL)
    {
       total_burst += current->info->burst;
+      current->info->execute_time = 0;
       current = current->next; 
    }
 
@@ -57,7 +58,7 @@ void sjf_method(List* L)
     
    }
 
-   current  = L->head;
+   //current  = L->head;
 
     while(current != NULL)
     {
