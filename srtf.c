@@ -5,17 +5,17 @@
 #include <limits.h>
 #include "process.h"
 
-int total_waitTime = 0;
-double  avg_waitTime = 0;
-Node* temp;
 
-void srtf_method(List* L)
+
+void srtf_method(List* L, FILE* output_file)
 {
-     printf("Scheduling Method: Shortest job First Preemptive\n");
-     printf("Process Waiting Times:\n");
+     fprintf(output_file, "Scheduling Method: Shortest job First Preemptive\n");
+     fprintf(output_file, "Process Waiting Times:\n");
     
 int current_time = 0;
 int total_Burst = 0;
+int total_waitTime = 0;
+double  avg_waitTime = 0;
 Node* current = L->head;
 Node* index;
 Node* temp;
@@ -50,6 +50,13 @@ for(size_t i = 0; i < L->size; i++)
      {
       current_time++;
      }
+       if(index->info->remain_burst - 2 > 0)
+       { 
+
+            index->info->remain_burst  -= 2;
+            current_time += 2;
+       }
+
      else{
          current_time += 1;
          index->info->remain_burst -= 1;
@@ -62,7 +69,7 @@ for(size_t i = 0; i < L->size; i++)
 
     while(temp != NULL)
     {
-       printf("P%d: %d ms\n",  temp->info->pid + 1 , temp->info->wait_time);
+       fprintf(output_file, "P%d: %d ms\n",  temp->info->pid + 1 , temp->info->wait_time);
 
          total_waitTime += temp->info->wait_time;
          temp = temp->next;
@@ -70,7 +77,7 @@ for(size_t i = 0; i < L->size; i++)
     }
 
       avg_waitTime = (double)total_waitTime / L->size;
-      printf("Average waiting time is: %.2f\n", avg_waitTime); 
+      fprintf(output_file, "Average waiting time is: %.2f\n", avg_waitTime); 
     
 }
 

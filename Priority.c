@@ -5,11 +5,11 @@
 #include "process.h"
 
 
-void priority_method(List* L)
+void priority_method(List* L, FILE* output_file)
 {
 
-    printf("Scheduling Method: Priority Non Preemptive\n");
-    printf("Process Waiting Times:\n");
+    fprintf(output_file, "Scheduling Method: Priority Non Preemptive\n");
+    fprintf(output_file, "Process Waiting Times:\n");
 
 
     int current_time  = 0; // Current time of the CPU
@@ -62,7 +62,7 @@ void priority_method(List* L)
 
     while(current != NULL)
     {
-       printf("P%d: %d ms\n",  current->info->pid + 1 , current->info->wait_time);
+       fprintf(output_file, "P%d: %d ms\n",  current->info->pid + 1 , current->info->wait_time);
 
          totalWait_time += current->info->wait_time;
          current = current->next;
@@ -70,7 +70,7 @@ void priority_method(List* L)
     }
 
       avgWait_Time = (double)totalWait_time / L->size;
-      printf("Average waiting time is: %.2f\n", avgWait_Time); 
+      fprintf(output_file, "Average waiting time is: %.2f\n", avgWait_Time); 
 
 
 }

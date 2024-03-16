@@ -6,10 +6,10 @@
 #include "process.h"
 
 
-void sjf_method(List* L)
+void sjf_method(List* L, FILE* output_file)
 {  
-    printf("Scheduling Method: Shortest job First Non Preemptive\n");
-    printf("Process Waiting Times:\n");
+    fprintf(output_file, "Scheduling Method: Shortest job First Non Preemptive\n");
+    fprintf(output_file, "Process Waiting Times:\n");
 
 
    Node* current = L->head;
@@ -58,11 +58,11 @@ void sjf_method(List* L)
     
    }
 
-   //current  = L->head;
+   current  = L->head;
 
     while(current != NULL)
     {
-       printf("P%d: %d ms\n",  current->info->pid + 1 , current->info->wait_time);
+       fprintf(output_file, "P%d: %d ms\n",  current->info->pid + 1 , current->info->wait_time);
 
          totalWait_time += current->info->wait_time;
          current = current->next;
@@ -72,7 +72,7 @@ void sjf_method(List* L)
 
     avgWait_Time = (double)totalWait_time / size(L);
 
-   printf("Average waiting time is: %.2f\n", avgWait_Time); 
+   fprintf(output_file, "Average waiting time is: %.2f\n", avgWait_Time); 
     
 
 }
