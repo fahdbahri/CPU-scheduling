@@ -11,4 +11,7 @@ void rr_method(List* L, FILE* output_file)
     printf("Enter the value of quantem: %d", quantem);
 
 
+    
+
+
 }
