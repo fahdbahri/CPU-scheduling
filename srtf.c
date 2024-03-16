@@ -50,13 +50,6 @@ for(size_t i = 0; i < L->size; i++)
      {
       current_time++;
      }
-       if(index->info->remain_burst - 2 > 0)
-       { 
-
-            index->info->remain_burst  -= 2;
-            current_time += 2;
-       }
-
      else{
          current_time += 1;
          index->info->remain_burst -= 1;
@@ -65,6 +58,10 @@ for(size_t i = 0; i < L->size; i++)
      }
      
     }
+
+
+
+    // displaying the output...
     temp = L->head;
 
     while(temp != NULL)
