@@ -55,48 +55,6 @@ int insert_n(Info* info, List* L)
     L->tail = nv;
     return (int)L->size;
 }
-
-/*int insert_n(Info* info, List* L)
-{
-    if (L == NULL) return -1; // Input validation
-    
-    // Allocate memory for the new node
-    Node* nv = (Node*)malloc(sizeof(Node));
-    if (nv == NULL) return -1; // Check for memory allocation failure
-    
-    // Allocate memory for the data and copy it
-    nv->info = (Info*)malloc(sizeof(Info));
-    if (nv->info == NULL)
-    {
-        free(nv); // Free the allocated node if data allocation fails
-        return -1;
-    }
-    *(nv->info) = *info; // Copy the data
-    
-    // Assign the PID value
-    nv->info->pid = L->size + 1; // Increment the PID based on the current size of the list
-    
-    // Adjust pointers for the new node
-    nv->prev = NULL; // Since the new node will be the first node, its prev pointer should be NULL
-    nv->next = L->head; // The new node's next pointer should point to the current head of the list
-    
-    // Update the list pointers
-    if (L->size == 0) // If the list is empty
-    {
-        L->tail = nv; // The new node becomes both the head and the tail
-    }
-    else
-    {
-        L->head->prev = nv; // Update the prev pointer of the current head to point to the new node
-    }
-    L->head = nv; // Update the head pointer to point to the new node
-    
-    L->size++; // Increment the list size
-    
-    return (int)L->size; // Return the updated list size
-}
-*/
-
 int remove_n(List* L)
 {  // remove from start
     if (L == NULL) return -1;
