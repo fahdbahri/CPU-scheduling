@@ -37,6 +37,8 @@
 #include "round_robin.c"
 #include "process.c"
 
+int quantem; // quantum of round robin method
+
 // Function prototypes
 void setSchedulingMethod();
 void setPreemptiveMode();
@@ -120,7 +122,7 @@ int main(int argc, char *argv[])
 // Function to set the scheduling method based on user input
 void setSchedulingMethod()
 {
-    printf("Enter scheduling method ('FCFS' for First Come First Served, 'None' for no scheduling method): ");
+    printf("Enter scheduling method ('FCFS' for First Come First Served, 'SJF' for Short Job First 'PRIORITY', for Priority, 'RR' for Round Robin, 'None' for no scheduling method): ");
     scanf("%s", schedulingMethod);
     if (strcmp(schedulingMethod, "FCFS") == 0)
     {
@@ -129,6 +131,23 @@ void setSchedulingMethod()
     else if (strcmp(schedulingMethod, "SJF") == 0)
     {
         printf("Scheduling method set to: %s\n", schedulingMethod);
+    }
+     else if (strcmp(schedulingMethod, "PRIORITY") == 0)
+ {
+           printf("Scheduling method set to: %s\n", schedulingMethod);
+ }
+    else if (strcmp(schedulingMethod, "RR") == 0)
+    {
+        printf("Scheduling method set to: %s\n", schedulingMethod);
+
+        printf("\nEnter the value of quantem:\n");
+        scanf("%d", &quantem);
+    }else if (strcmp(schedulingMethod, "None") == 0)
+    {
+       printf("Scheduling method set to: %s\n", schedulingMethod);
+    } else
+    {
+        printf("Incorrect Value\n");
     }
 }
 
@@ -180,10 +199,15 @@ void showResult(List *new_list)
 
             pre_Priority(new_list, stdout);
         }
-    } 
+    }
     else if (strcmp(schedulingMethod, "RR") == 0)
     {
 
+        rr_method(new_list, stdout, quantem);
+    }
+     else if (strcmp(schedulingMethod, "None") == 0)
+    {
+        printf("No scheduling method chosen.\n");
     }
     else
     {
@@ -225,13 +249,13 @@ void endProgram(List *new_list, const char *output_filename)
             pre_Priority(new_list, output_file);
         }
     }
+    else if (strcmp(schedulingMethod, "RR") == 0)
+    {
+         rr_method(new_list, output_file, quantem);
+    } 
     else if (strcmp(schedulingMethod, "None") == 0)
     {
         printf("No scheduling method chosen.\n");
-    }
-    else if(strcmp(schedulingMethod, "RR") == 0)
-    {
-
     }
     else
     {
