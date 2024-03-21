@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "fcfs.c"
-#include "sjf.c"
-#include "srtf.c"
-#include "Priority.c"
-#include "pre_Priority.c"
-#include "round_robin.c"
-#include "process.c"
+#include "../src/algorithms/fcfs.c"
+#include "../src/algorithms/sjf.c"
+#include "../src/algorithms/srtf.c"
+#include "../src/algorithms/Priority.c"
+#include "../src/algorithms/pre_Priority.c"
+#include "../src/algorithms/round_robin.c"
+#include "../src/process/process.c"
 
 int quantem; // quantum of round robin method
 
@@ -61,7 +61,8 @@ int main(int argc, char *argv[])
         printf("1) Scheduling Method (%s)\n", schedulingMethod);
         printf("2) Preemptive Mode (%s)\n", preemptiveMode);
         printf("3) Show Result\n");
-        printf("4) End Program\n");
+        printf("4) Print To File\n");
+        printf("5) End Program\n");
         printf("Option > ");
         scanf("%d", &option); // Get user input
 
@@ -80,11 +81,15 @@ int main(int argc, char *argv[])
 
             break;
         case 4:
-            printf("Ending program.\n");
+            printf("Printing to File\n");
             endProgram(new_list, output_filename);
 
             destroy_l(new_list); // Free memory
-            return 0;
+            break;
+
+        case 5:
+            printf("Ending Program..\n");
+            return 0; // Exit program
         default:
             printf("Invalid option. Please choose a valid option.\n");
         }
