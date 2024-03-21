@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "process.h"
+#include "../process/process.h"
 
 
 void priority_method(List* L, FILE* output_file)
