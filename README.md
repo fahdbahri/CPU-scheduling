@@ -52,6 +52,7 @@ Sample input file input.txt is provided in the Appendix section.
    
 6. Appendix:
     -Input File (input.txt):
+   
              Burst Time:Arrival Time:Priority
               10:     0:           0
               5:      0:           0
