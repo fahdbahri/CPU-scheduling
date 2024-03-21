@@ -17,7 +17,7 @@ Functionality:
 
 The input file should have three columns and unlimited rows, with fields delimited by the ":" character. The structure of the file should be as follows:
 
-                         Burst Time:Arrival Time:Priority
+                         Burst Time:  Arrival Time:  Priority
     
 Sample input file input.txt is provided in the Appendix section.
 
