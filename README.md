@@ -2,7 +2,7 @@
 
 Project Overview:
 
-This project is a simple CPU scheduling simulator designed to handle various scheduling methods including First Come, First Served Scheduling, Shortest-Job-First Scheduling, Priority Scheduling, and Round-Robin Scheduling. The program takes input data from a text file and provides output data to another text file as specified by command-line arguments. It also gathers statistics such as average waiting time and waiting time for each job in the queue.
+This project is a CPU scheduling program designed to handle various scheduling methods including First Come, First Served Scheduling, Shortest-Job-First Scheduling, Priority Scheduling, and Round-Robin Scheduling. The program takes input data from a text file and provides output data to another text file as specified by command-line arguments. It also gathers statistics such as average waiting time and waiting time for each job in the queue.
 
 Usage:
 
